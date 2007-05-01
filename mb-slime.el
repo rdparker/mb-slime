@@ -1,14 +1,20 @@
+;;;; Modified by Ron Parker
 
-(add-to-list 'load-path "/Users/mb/lisp/slime/")
+; (add-to-list 'load-path "/Users/mb/lisp/slime/")
+(add-to-list 'load-path "/Users/rdparker/.emacs.d")
 (require 'slime)
 
-(slime-setup :autodoc t :record-changed-definitions t)
+(add-hook 'lisp-mode-hook 'enable-paredit-mode)
+(add-hook 'lisp-mode-hook (lambda () (slime-mode t)))
+(add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode t)))
 
-(setq inferior-lisp-program "/Users/mb/bin/openmcl"
+(slime-setup :autodoc t)
+
+(setq inferior-lisp-program "/Applications/OpenMCL/scripts/openmcl"
       lisp-indent-function 'common-lisp-indent-function
       slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-      common-lisp-hyperspec-root "file:///Users/mb/lisp/HyperSpec/"
-      slime-startup-animation nil
+      common-lisp-hyperspec-root "file:///Users/rdparker/Lisp/HyperSpec-7-0/HyperSpec/"
+      slime-startup-animation t
       slime-enable-evaluate-in-emacs t
       slime-log-events t
       slime-outline-mode-in-events-buffer nil
@@ -28,11 +34,12 @@
      (interactive)
      (slime-start :program ,lisp)))
 
-(defslime-start openmcl "/Users/mb/bin/openmcl")
-(defslime-start clisp "/Users/mb/bin/clisp")
-(defslime-start cmucl "/Users/mb/lisp/cmucl/bin/lisp")
+(defslime-start openmcl "/Applications/OpenMCL/scripts/openmcl")
+(defslime-start clisp "/opt/local/bin/clisp")
+(defslime-start cmucl "/usr/local/cmucl/bin/lisp")
 (defslime-start sbcl "/usr/local/bin/sbcl")
-(defslime-start abcl "/Users/mb/bin/abcl")
+;(defslime-start abcl "/Users/mb/bin/abcl")
+(defslime-start allegro-express "/usr/local/acl80_express/alisp")
 
 (define-key global-map (kbd "<f9>") 'slime-selector)
 
@@ -126,10 +133,10 @@
 
 ;; setup {} and [] to be treated like ()
 
-(modify-syntax-entry ?{ "(}" lisp-mode-syntax-table)
-(modify-syntax-entry ?} "){" lisp-mode-syntax-table)
-(modify-syntax-entry ?[ "(]" lisp-mode-syntax-table)
-(modify-syntax-entry ?] ")[" lisp-mode-syntax-table)
+;(modify-syntax-entry ?{ "(}" lisp-mode-syntax-table)
+;(modify-syntax-entry ?} "){" lisp-mode-syntax-table)
+;(modify-syntax-entry ?[ "(]" lisp-mode-syntax-table)
+;(modify-syntax-entry ?] ")[" lisp-mode-syntax-table)
 
 ;; would love to have < and > match as well, but this totally breaks
 ;; yaclml :(
@@ -169,3 +176,4 @@
 ;; ;                  after-change-functions)
 ;;             (push (lambda () (mb:slime-narrow-buffer 1000))
 ;;                   post-command-hook)))
+(provide 'mb-slime)
