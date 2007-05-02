@@ -121,24 +121,6 @@
 
 (setf slime-display-edit-hilights nil)
 
-(require 'tramp)
-
-(setf slime-filename-translations
-      (list
-       (slime-create-filename-translator :machine-instance "soren"
-                                         :remote-host "80.68.86.18"
-                                         :username "animaliter")
-       (slime-create-filename-translator :machine-instance "mail"
-                                         :remote-host "85.88.193.69"
-                                         :username "marvin")
-       (slime-create-filename-translator :machine-instance "deng-mbari"
-                                         :remote-host "deng-mbari"
-                                         :username "mbaringer")
-       (slime-create-filename-translator :machine-instance "debian3164lamp"
-                                         :remote-host "talkisaction.com"
-                                         :username "talk")
-       (list ".*" 'identity 'identity)))
-
 ;; setup {} and [] to be treated like ()
 
 ;(modify-syntax-entry ?{ "(}" lisp-mode-syntax-table)
