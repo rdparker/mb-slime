@@ -10,8 +10,7 @@
 
 (slime-setup :autodoc t)
 
-(setq inferior-lisp-program "/Applications/OpenMCL/scripts/openmcl"
-      lisp-indent-function 'common-lisp-indent-function
+(setq lisp-indent-function 'common-lisp-indent-function
       slime-complete-symbol-function 'slime-fuzzy-complete-symbol
       common-lisp-hyperspec-root "file:///Users/rdparker/Lisp/HyperSpec-7-0/HyperSpec/"
       slime-startup-animation t
@@ -38,7 +37,7 @@
 	(defun ,name ()
 	  (interactive)
 	  (slime-start :program ,lisp))
-	(setq available-lisps (append '(,name) available-lisps)))))
+	(setq available-lisps (append '(,lisp) available-lisps)))))
 
 (defslime-start openmcl "/Applications/OpenMCL/scripts/openmcl")
 (or (defslime-start clisp "/opt/local/bin/clisp")
@@ -48,6 +47,7 @@
 (defslime-start sbcl "/usr/local/bin/sbcl")
 ;(defslime-start abcl "/Users/mb/bin/abcl")
 (defslime-start allegro-express "/usr/local/acl80_express/alisp")
+(setq inferior-lisp-program (car available-lisps))
 
 (define-key global-map (kbd "<f9>") 'slime-selector)
 
