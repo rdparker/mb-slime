@@ -29,14 +29,20 @@
 
 (setf paren-priority 'close)
 
+(defvar available-lisps () "What lisps are available to be loaded by slime?")
+
 (defmacro defslime-start (name lisp)
+  "Define NAME as a function that calls SLIME-START on LISP."
   (if (file-exists-p lisp)
-      `(defun ,name ()
-	 (interactive)
-	 (slime-start :program ,lisp))))
+      `(progn
+	(defun ,name ()
+	  (interactive)
+	  (slime-start :program ,lisp))
+	(setq available-lisps (append '(,name) available-lisps)))))
 
 (defslime-start openmcl "/Applications/OpenMCL/scripts/openmcl")
-(defslime-start clisp "/opt/local/bin/clisp")
+(or (defslime-start clisp "/opt/local/bin/clisp")
+    (defslime-start clisp "/usr/bin/clisp"))
 (or (defslime-start cmucl "/usr/local/cmucl/bin/lisp")
     (defslime-start cmucl "/usr/bin/lisp"))
 (defslime-start sbcl "/usr/local/bin/sbcl")
