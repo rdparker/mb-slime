@@ -37,7 +37,7 @@
 	(defun ,name ()
 	  (interactive)
 	  (slime-start :program ,lisp))
-	(setq available-lisps (append '(,lisp) available-lisps)))))
+	(setq available-lisps (append available-lisps '(,lisp))))))
 
 (defslime-start openmcl "/Applications/OpenMCL/scripts/openmcl")
 (or (defslime-start clisp "/opt/local/bin/clisp")
