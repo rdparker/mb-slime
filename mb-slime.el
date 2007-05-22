@@ -57,6 +57,7 @@
 
 (define-key slime-mode-map (kbd "(") 'paredit-open-parenthesis)
 (define-key slime-mode-map (kbd ")") 'paredit-close-parenthesis)
+(define-key paredit-mode-map (kbd ")") 'paredit-close-parenthesis)
 
 (define-key slime-mode-map (kbd "\"") 'paredit-doublequote)
 (define-key slime-mode-map (kbd "\\") 'paredit-backslash)
